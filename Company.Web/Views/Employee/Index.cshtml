@@ -1,0 +1,83 @@
+﻿@model IEnumerable<EmployeeDto>
+
+<h1>All Employees</h1>
+<br />
+<br />
+<a asp-controller="Employee" asp-action="Create" class="btn btn-primary">Create New Employee</a>
+
+<div class="row justify-content-center align-items-center mt-5">
+    <form class="row col-8 offset-2" asp-action="Index">
+        <div class="col-8">
+            <input type="text" class="form-control" name="searchInp" placeholder="Search By Name" />
+        </div>
+        <div class="col-4">
+            <input type="submit" value="Search" class="btn btn-success" />
+        </div>
+    </form>
+</div>
+
+
+@* <div class="mt-5 alert alert-danger">
+    <h3>@ViewBag.Message</h3>
+</div>
+
+
+<div class="mt-5 alert alert-danger">
+    <h3>@ViewData["TextMessage"]</h3>
+</div>
+
+
+<div class="mt-5 alert alert-danger">
+    <h3>@TempData["TextTempMessage"]</h3>
+</div> *@
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(D => D.Name)</th>
+                <th>@Html.DisplayNameFor(D => D.Image)</th>
+                <th>@Html.DisplayNameFor(D => D.Age)</th>
+                <th>@Html.DisplayNameFor(D => D.Address)</th>
+                <th>@Html.DisplayNameFor(D => D.Salary)</th>
+                <th>@Html.DisplayNameFor(D => D.Email)</th>
+                <th>@Html.DisplayNameFor(D => D.PhoneNumber)</th>
+                <th>@Html.DisplayNameFor(D => D.HiringDate)</th>
+                <th>Details</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Employee in Model)
+            {
+                <tr>
+                    <td>@Employee.Name</td>
+                    <td>
+                        <img src="~/Files/Images/@Employee.ImageUrl" height="40" width="40" alt=""/>
+                    </td>
+                    <td>@Employee.Age</td>
+                    <td>@Employee.Address</td>
+                    <td>@Employee.Salary</td>
+                    <td>@Html.DisplayFor(M => Employee.Email)</td>
+                    <td>@Employee.PhoneNumber</td>
+                    <td>@Employee.HiringDate</td>
+                    <td>
+                        @*                         <partial name="_ActionButtonsPartialView" model="@Employee.Id" />
+                *@
+
+                        <partial name="_ActionButtonsPartialView" model="@Employee.Id.ToString()" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+
+    <div class="mt-5 alert alert-warning">
+        <h3>Ther is no Employees</h3>
+    </div>
+}
